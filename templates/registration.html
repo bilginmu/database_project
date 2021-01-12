@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Registration{% endblock %}
+{% block content %}
+<h1 class="title fdrone"> Register </h1>
+    <!-- drone attributes for additon of drones-->
+    
+	<form class= "fdrone"  action="" method="post" name="movie_edit">
+		<label  id="labelid" for="uname">Name:</label>
+		<input  type="text" name="uname" class="input" id="inputid" required="required"/><br>
+		
+		<label  id="labelid" for="usurname">Surname:</label>
+		<input  type="text" name="sname" class="input" id="inputid" required="required"/><br>
+        
+        <label  id="labelid" for="email">Email:</label>
+		<input  id="inputid" type="text" name="email" class="input" required="required"/><br>
+		
+        <label  id="labelid" for="username">Username:</label>
+		<input  id="inputid" type="text" name="username" class="input" required="required"/><br>
+        
+        <label  id="labelid" for="password">Password:</label>
+		<input  id="inputid" type="text" name="password" class="input" required="required"/><br>
+		
+        
+        <label  for="uarea" >Interested Area:</label> <br>       
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="agriculture" name="type" value="agriculture" />
+        <label for="agriculture">agriculture</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="racing" name="type" value="racing" />
+        <label for="racing">racing</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="delivery" name="type" value="delivery" />
+        <label for="delivery">delivery</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="shipping" name="type" value="shipping" />
+        <label for="shipping">shipping</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="photo" name="type" value="photo" />
+        <label for="photo">photography</label><br>
+        
+        <label  for="account" >Account Type:</label> <br>       
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Customer" name="type2" value="Customer" />
+        <label for="Customer">Customer</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Company" name="type2" value="Company" />
+        <label for="Company">Company</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Distributor" name="type2" value="Distributor" />
+        <label for="Distributor">Distributor</label><br>
+
+        <button name="rbutton" type="submit" value="Rbutton">Submit</button>
+        
+
+
+        
+	</form>	
+{% endblock %}

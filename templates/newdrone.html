@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}New Drone{% endblock %}
+{% block content %}
+	
+	<h1 class="title fdrone"> New Drone </h1>
+	<!-- drone attributes for additon of drones-->
+	<form class= "fdrone" action="" method="post" name="movie_edit">
+		<label  for="dname">Drone Name:</label><br>
+		<input  type="text" name="dname" class="input" required="required"/><br>
+		
+		<label for="dweight">Weight:</label><br>
+		<input  type="text" name="dweight" class="input" required="required"/><br>
+		
+		<label for="dheight">Height:</label><br>
+		<input  type="text" name="dheight" class="input" required="required"/><br>
+		
+		<label for="dlength">Length:</label><br>
+		<input  type="text" name="dlength" class="input" required="required"/><br>
+		
+		<label for="dendurance">Endurance:</label><br>
+		<input  type="text" name="dendurance" class="input" required="required"/><br>
+		
+		<label for="darea">Area:</label><br>
+		<input  type="text" name="darea" class="input" required="required"/><br>
+		
+		<label for="dtechnology">Technology:</label><br>
+		<input  type="text" name="dtechnology" class="input" required="required"/><br>
+		
+		<label for="dprice">Price:</label><br>
+		<input  type="text" name="dprice" class="input" required="required"/><br>
+		
+		<label  for="dtype" >Type:</label><br>
+		<input  type="radio" id="fixedwing" name="type" value="fixed-wing" />
+		<label for="fixedwing">fixed-wing</label><br>
+		
+		<input  type="radio" id="quad" name="type" value="quad" />
+		<label for="quad">quad</label><br>
+		
+		<input  type="radio" id="hexa" name="type" value="hexa" />
+		<label for="hexa">hexa</label><br>
+		
+		<input  type="radio" id="octo" name="type" value="octo" />
+		<label for="octo">octo</label><br>
+
+		<input  type="radio" id="vtol" name="type" value="vtol" />
+		<label for="vtol">vtol</label><br>
+
+		<input  type="radio" id="helicopter" name="type" value="helicopter" />
+		<label for="helicopter">helicopter</label><br>
+		<button name="addbutton" value="add" type="submit" >Add New Drone</button>
+	</form>	
+
+
+	
+	
+{% endblock %}
+

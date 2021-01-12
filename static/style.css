@@ -1,0 +1,69 @@
+.dronehome{
+    text-align: center;
+    border: 1px solid gray  ;
+
+}
+.fdrone{
+    margin-left: 20px;
+}
+.input{
+    width: 200px;
+    height: 25px;
+}
+footer{
+    text-align: center;
+}
+.imgContainer{
+    float:left;
+    width: 50%;
+}
+#labelid{
+    width: 30%;
+    float:left;
+    padding-right: 200px;
+}
+#inputid{
+    width: 20%;
+    left: -250px;
+}
+
+#rightnav{
+    right: -135%;
+}
+/* Split the screen in half */
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color:  white;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: white;
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }

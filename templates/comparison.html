@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}Comparison{% endblock %}
+{% block content %}
+<div class="split left">
+    <div class="centered">
+		<div class="dronehome">
+			<img src={{drones[0][0]}} width="250px" height="250px">			
+			<p><strong>Name: </strong>{{drones[0][1]}}</p>
+			<p><strong>Type: </strong>{{drones[0][2]}}</p>
+			<p><strong>Weight: </strong>{{drones[0][3]}}</p>
+			<p><strong>Height: </strong>{{drones[0][4]}}</p>
+			<p><strong>Length: </strong>{{drones[0][5]}}</p>
+			<p><strong>Endurance: </strong>{{drones[0][6]}}</p>
+			<p><strong>Area: </strong>{{drones[0][7]}}</p>
+			<p><strong>Technology: </strong>{{drones[0][8]}}</p>
+			<p><strong>Price </strong>{{drones[0][9]}}</p>
+			<button type="button" onclick="alert('Hello world!')">Add to Basket</button>
+		</div>
+        
+    </div>
+  </div>
+  
+  <div class="split right">
+    <div class="centered">
+		<div class="dronehome">
+			<img src={{drones[1][0]}} width="250px" height="250px">			
+			<p><strong>Name: </strong>{{drones[1][1]}}</p>
+			<p><strong>Type: </strong>{{drones[1][2]}}</p>
+			<p><strong>Weight: </strong>{{drones[1][3]}}</p>
+			<p><strong>Height: </strong>{{drones[1][4]}}</p>
+			<p><strong>Length: </strong>{{drones[1][5]}}</p>
+			<p><strong>Endurance: </strong>{{drones[1][6]}}</p>
+			<p><strong>Area: </strong>{{drones[1][7]}}</p>
+			<p><strong>Technology: </strong>{{drones[1][8]}}</p>
+			<p><strong>Price </strong>{{drones[1][9]}}</p>
+			<button type="button" onclick="alert('Hello world!')">Add to Basket</button>
+		</div>
+        
+    </div>
+  </div>
+
+{% endblock %}

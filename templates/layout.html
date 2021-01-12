@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Drone Database - {% block title %}{% endblock %} </title>
+		<link rel="stylesheet"
+			  href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/style.css">
+	</head>
+	<body>
+		<header>
+	   		<nav class="navbar" aria-label="main navigation">
+				<div class="navbar-brand">
+					<span style="left: 0%;" class="navbar-item">
+						<a class="button is-link" href={{ url_for('home_page') }}>Home</a>
+					</span>
+			   		<span style="right: 3.5%;" class="navbar-item">
+						<a class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
+					</span>
+					<span style="right: 6.9%;" class="navbar-item">
+						<a class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
+					</span>
+					<span class="navbar-item" style="right: -103.5%;">
+						<a class="button is-link" href={{ url_for('basket') }}>Basket</a>
+					</span>
+					<span class="navbar-item" style="right: -100%;">
+						<a class="button is-link" href={{ url_for('registration') }}>Register</a>
+					</span>
+		 
+			   </div> 
+			</nav>
+	</header>
+		
+	{% block content %}{% endblock %}
+	<footer>
+			<small>&copy; 2021, Mustafa Bilgin</small>
+	</footer>
+	</body>
+</html>
+

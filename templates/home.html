@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+{% for row in drones  -%}
+		<div class="dronehome">
+			<img src={{row[0]}} width="250px" height="250px">			
+			<p><strong>Name: </strong>{{row[1]}}</p>
+			<p><strong>Type: </strong>{{row[2]}}</p>
+			<p><strong>Weight: </strong>{{row[3]}}</p>
+			<p><strong>Height: </strong>{{row[4]}}</p>
+			<p><strong>Length: </strong>{{row[5]}}</p>
+			<p><strong>Endurance: </strong>{{row[6]}}</p>
+			<p><strong>Area: </strong>{{row[7]}}</p>
+			<p><strong>Technology: </strong>{{row[8]}}</p>
+			<p><strong>Price </strong>{{row[9]}}</p>
+			<form action="" method="post">
+				<button name="addbasket" type="submit" value="{{loop.index}}">Add to Basket</button>
+			</form>
+		</div>
+	
+	
+{% endfor %}
+
+
+
+
+
+
+
+{% endblock %}
