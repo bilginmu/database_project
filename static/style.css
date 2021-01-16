@@ -27,6 +27,14 @@ footer{
     left: -250px;
 }
 
+#dvtext {
+  display: none;
+}
+#Distributor:checked ~ #dvtext{
+  display: block;
+}
+
+
 #rightnav{
     right: -135%;
 }

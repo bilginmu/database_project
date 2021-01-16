@@ -47,11 +47,19 @@
 
 		<input  type="radio" id="helicopter" name="type" value="helicopter" />
 		<label for="helicopter">helicopter</label><br>
+		
+		<p>Your photos should be at static/photos folder!!! Otherwise, you cannot see!</p>
+		<input type="file" name="filename" value="noimahe.png">
+
+		<div action="" method="post">
 		<button name="addbutton" value="add" type="submit" >Add New Drone</button>
+		</div>
+
+	
+
 	</form>	
 
 
-	
-	
-{% endblock %}
 
+
+{% endblock %}

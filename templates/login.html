@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <form class= "fdrone" action="" method="post" name="movie_edit">
+        <label  for="username">Username:</label>
+		<input  type="text" name="username" class="input"  required="required"/><br>
+		
+		&nbsp;&nbsp;<label  for="password">Password:</label>
+        <input  type="text" name="password" class="input" required="required"/><br>
+        
+        
+        <div action="" method="post">
+            <button name="login" value="logged" type="submit" >Login</button>
+            </div>
+    </form>
+
+{% endblock %}

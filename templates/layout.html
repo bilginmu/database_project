@@ -10,22 +10,26 @@
 	</head>
 	<body>
 		<header>
-	   		<nav class="navbar" aria-label="main navigation">
+	   		<nav style="background-color: gray;" class="navbar" aria-label="main navigation">
 				<div class="navbar-brand">
+					
 					<span style="left: 0%;" class="navbar-item">
-						<a class="button is-link" href={{ url_for('home_page') }}>Home</a>
-					</span>
-			   		<span style="right: 3.5%;" class="navbar-item">
-						<a class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
+						<a style="background-color: rgb(10, 99, 10);" class="button is-link" href={{ url_for('home_page') }}>Home</a>
 					</span>
 					<span style="right: 6.9%;" class="navbar-item">
-						<a class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
+						<a style="background-color: gray;" class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
 					</span>
+					{% if current_user.is_admin %}   
+					<span style="right: 3.5%;" class="navbar-item">
+						<a style="background-color: gray;" class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
+					</span>
+					{% endif %}
+					
 					<span class="navbar-item" style="right: -103.5%;">
-						<a class="button is-link" href={{ url_for('basket') }}>Basket</a>
+						<a style="background-color: gray;" class="button is-link" href={{ url_for('basket') }}>Basket</a>
 					</span>
 					<span class="navbar-item" style="right: -100%;">
-						<a class="button is-link" href={{ url_for('registration') }}>Register</a>
+						<a style="background-color: gray;" class="button is-link" href={{ url_for('registration') }}>Register</a>
 					</span>
 		 
 			   </div> 
