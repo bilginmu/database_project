@@ -11,31 +11,39 @@
 	<body>
 		<header>
 	   		<nav style="background-color: gray;" class="navbar" aria-label="main navigation">
-				<div class="navbar-brand">
+				<div class="navbar-brand" >
 					
-					<span style="left: 0%;" class="navbar-item">
+					<span style="position: absolute;left: 0%;" class="navbar-item">
 						<a style="background-color: rgb(10, 99, 10);" class="button is-link" href={{ url_for('home_page') }}>Home</a>
 					</span>
-					<span style="right: 6.9%;" class="navbar-item">
-						<a style="background-color: gray;" class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
-					</span>
+					{% if current_user.is_authenticated  == True %}
 					{% if current_user.is_admin %}   
-					<span style="right: 3.5%;" class="navbar-item">
-						<a style="background-color: gray;" class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
+					<span style="right: -80px;" class="navbar-item">
+						<a style="position: absolute; background-color: gray;" class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
 					</span>
 					{% endif %}
+					<span style="position: absolute; right: 160px;" class="navbar-item">
+						<a style="background-color: gray;" class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
+					</span>
 					
-					<span class="navbar-item" style="right: -103.5%;">
+					<span class="navbar-item" style="position: absolute; right: 80px;">
 						<a style="background-color: gray;" class="button is-link" href={{ url_for('basket') }}>Basket</a>
 					</span>
-					<span class="navbar-item" style="right: -100%;">
-						<a style="background-color: gray;" class="button is-link" href={{ url_for('registration') }}>Register</a>
+					{% endif %}
+					{% if current_user.is_authenticated == False %}
+					<span class="navbar-item" style="position: absolute; right: 0px;">
+						<a style="background-color: rgb(10, 99, 10);" class="button is-link" href={{ url_for('registration') }}>Register</a>
 					</span>
-		 
+					{% endif %}
+					{% if current_user.is_authenticated == True %}
+					<span class="navbar-item" style="position: absolute; right: 0px;">
+						<a style="background-color: gray;" class="button is-link" href={{ url_for('logout') }}>Logout</a>
+					</span>
+					{% endif %}
 			   </div> 
 			</nav>
-	</header>
 		
+	</header>
 	{% block content %}{% endblock %}
 	<footer>
 			<small>&copy; 2021, Mustafa Bilgin</small>

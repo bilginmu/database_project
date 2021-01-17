@@ -1,17 +1,28 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
+    <p></p><b> LOGIN</b></p>
+    <table id="table2">
     <form class= "fdrone" action="" method="post" name="movie_edit">
-        <label  for="username">Username:</label>
-		<input  type="text" name="username" class="input"  required="required"/><br>
-		
-		&nbsp;&nbsp;<label  for="password">Password:</label>
-        <input  type="text" name="password" class="input" required="required"/><br>
         
+        <tr>         
+            <td><label  for="username">Username:</label></td>
+		    <td><input  type="text" name="username" class="input"  required="required"/></td>
+		</tr>
+        <tr>
+            <td><label  for="password">Password:</label></td>
+            <td><input  type="text" name="password" class="input" required="required"/><br></td>
         
-        <div action="" method="post">
-            <button name="login" value="logged" type="submit" >Login</button>
-            </div>
+        </tr>
+        <tr>
+            <td>
+                <div action="" method="post">
+                    <button name="login" value="logged" type="submit" >Login</button>
+                </div>
+            </td>
+        </tr>
     </form>
+    
+    </table>
 
 {% endblock %}

@@ -26,7 +26,13 @@ footer{
     width: 20%;
     left: -250px;
 }
-
+th,td{
+  text-align: left;
+  padding: 1px;
+}
+#table2 {
+  border-collapse: collapse;
+}
 #dvtext {
   display: none;
 }
@@ -34,6 +40,9 @@ footer{
   display: block;
 }
 
+#fixed{
+  position: fixed;
+}
 
 #rightnav{
     right: -135%;

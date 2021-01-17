@@ -3,27 +3,30 @@ from flask_login import login_user,current_user,logout_user,login_required
 import databaseutils as dbutils
 from passlib.hash import pbkdf2_sha256 as hasher
 
-drones = (("static/photos/crazyflie.jpeg","Skydiver", "Quad", "3", "10","20","30","racing","lidar","10"),
-          ("static/photos/crazyflie.jpeg","Skydiver", "Quad", "3", "10","20","30","racing","lidar","10"),
-          ("static/photos/crazyflie.jpeg","Skydiver", "Quad", "3", "10","20","30","racing","lidar","10"),
-          ("static/photos/crazyflie.jpeg","Skydiver", "Quad", "3", "10","20","30","racing","lidar","10"))
 droneatbasket = []
 dronecomparison = []
-dronecomparison.append(drones[0]) # dummy for first
-dronecomparison.append(drones[1]) # dummy for first
+
 
 
 
 @login_required
 def home_page():
     if request.method == "POST":
-        index = int(request.form["addbasket"])
-        print (index)
-        global droneatbasket
-        droneatbasket.append(drones[index-1])
-        return render_template("droneatbasket.html")
-
+        if "addbasket" in request.form:
+            index = int(request.form["addbasket"])
+            global droneatbasket
+            drones = dbutils.get_drones()
+            droneatbasket.append(drones[index-1])
+            droneatbasket = list(dict.fromkeys(droneatbasket)) # remove the same elements
+            return render_template("droneatbasket.html")
+        elif "compare" in request.form:
+            index = int(request.form["compare"])
+            global dronecomparison
+            drones = dbutils.get_drones()
+            dronecomparison.append(drones[index-1])
+            return redirect(url_for('home_page'))        
     elif request.method == "GET":
+        drones = dbutils.get_drones()
         return render_template("home.html",drones=drones)
     
 
@@ -32,7 +35,7 @@ def home_page():
 def new_drone():
     # get new drone data
     if request.method == 'POST':
-        dronename = request.form['dname']
+        name = request.form['dname']
         weight = request.form['dweight']
         height = request.form['dheight']
         length = request.form['dlength']
@@ -40,12 +43,16 @@ def new_drone():
         area = request.form['darea']
         technology = request.form['dtechnology']
         price = request.form['dprice']
-        dronetype = request.form['type']
+        dtype = request.form['type']
         filename = request.form['filename']
-        if filename == " ":
-            pass
+        if filename is not None:
+            filename = "static/photos/" + filename
         else:
-            filename = "noimage.png"
+            filename = "/static/photos/noimage.png"
+        Drone = dbutils.drone(filename,name,dtype, weight, height,length,endurance,area,technology,price)
+        Drone.insert_db()
+        dbutils.add_drone(current_user,Drone.id) # adding foreing key to user
+        
         # if button is clicked, return home page
         if request.form['addbutton'] == "add":
             return render_template("afterdroneadded.html")
@@ -56,15 +63,31 @@ def new_drone():
 
 @login_required
 def comparison_drone():
-    return render_template("comparison.html",drones=dronecomparison)
+    global dronecomparison
+    if len(dronecomparison) > 2:        
+        dronecomparison = []
+    if request.method == 'POST':
+        global dronecomparison
+        dronecomparison = []
+        return redirect(url_for('home_page'))
+    if not dronecomparison or len(dronecomparison) == 1:
+        return render_template("comparisondummy.html")
+    
+    else:
+        return render_template("comparison.html",drones=dronecomparison)
  
 
 @login_required
 def basket():
     if request.method == "POST":
-        index = int(request.form['removebasket'])
-        droneatbasket.pop(index-1)
-        render_template("basketafterremoved.html")
+        if "removebasket" in request.form:
+            index = int(request.form['removebasket'])
+            droneatbasket.pop(index-1)
+            return render_template("basketafterremoved.html")
+        elif "buy" in request.form:
+            global droneatbasket 
+            droneatbasket = []
+            return redirect(url_for('home_page'))
     return render_template("basket.html",drones=droneatbasket)
 
 
