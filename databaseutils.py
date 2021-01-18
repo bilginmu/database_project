@@ -31,8 +31,6 @@ class drone:
         query = "SELECT CURRVAL('drone_id_seq')"
         cursor.execute(query)
         self.id = cursor.fetchone()
-        
-
         cursor.close()
 
 
@@ -65,6 +63,7 @@ class customer(UserMixin):
         cursor.execute(query,(self.name,self.email,self.username,hasher.hash(self.password),self.country,self.address,self.area))
         connection.commit()
         cursor.close()
+ 
 
 
 class distriutor(UserMixin):
@@ -125,8 +124,6 @@ class company(UserMixin):
         cursor.close()
 
 
-
-
 # get user from user_id
 def get_user(user_id):
     # find customer with given user name
@@ -137,9 +134,13 @@ def get_user(user_id):
     query = "SELECT * FROM customer WHERE username=%s;"
     cursor.execute(query,(user_id,))
     user = cursor.fetchone()
+    
     if user is not None:
-        User = customer(user[0],user[2],user[3],user[0],user[4],user[5],user[6])
-        User.drones = user[7]
+        #def __init__(self,name,username,password,email,country,address,area):
+        User = customer(user[1],user[3],user[4],user[2],user[5],user[6],user[7])
+        User.drones = user[8]
+        cursor.close()
+
         return User
 
     # find if distributor user
@@ -147,17 +148,21 @@ def get_user(user_id):
     cursor.execute(query,(user_id,))
     user = cursor.fetchone()
     if user is not None:
-        User = distriutor(user[0],user[3],user[4],user[1],user[2],user[5],user[6],user[7])
-        User.drones = user[8]
+        User = distriutor(user[1],user[4],user[5],user[2],user[3],user[6],user[7],user[8])
+        User.drones = user[9]
+        cursor.close()
+
         return User
     
     # find if company user
     query = "SELECT * FROM company WHERE username=%s;"
     cursor.execute(query,(user_id,))
     user = cursor.fetchone()
+    print (user)
     if user is not None:
-        User = company(user[0],user[2],user[3],user[1],user[4],user[5])
-        User.drones = user[6]
+        User = company(user[1],user[3],user[4],user[2],user[5],user[6])
+        User.drones = user[7]
+        cursor.close()
         return User
 
     cursor.close()
@@ -205,6 +210,42 @@ def add_drone(user,id_in):
             connection.commit()
     cursor.close()
 
+def add_order(user, price,status,shipped_date,required_date,order_date,drone_id):
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+
+    # add orders to database
+    order_ids = []
+    for i in drone_id:
+        query = """INSERT INTO orders
+                    (price,status,shipped_date,required_date,order_date,drone) VALUES (%s,%s,%s,%s,%s,%s)"""
+        cursor.execute(query,(price,status,shipped_date,required_date,order_date,i))
+        connection.commit()
+        query = "SELECT CURRVAL('orders_id_seq')"
+        cursor.execute(query)
+        idx = cursor.fetchone()
+        order_ids.append(idx[0])
+    # select ids of added orders
+    print (order_ids)
+
+    # relate orders to customer with foreign key
+    query = "SELECT orders FROM customer where username=%s"
+    cursor.execute(query,(user.username,))
+    order_id = cursor.fetchone()
+    if order_id[0] == None:
+        query = "UPDATE customer SET orders=%s where username=%s"
+        cursor.execute(query,(order_ids[0],user.username))
+        connection.commit()
+        order_ids = list(order_ids)
+        order_ids.pop(0)
+    for i in order_ids:
+        query = """INSERT INTO CUSTOMER (name,email,username,password,country,address,area,orders) VALUES 
+                    (%s,%s,%s,%s,%s,%s,%s,%s);"""
+        cursor.execute(query,(user.name,user.email,user.username,hasher.hash(user.password),user.country,user.address,user.area,i))
+        connection.commit()
+    cursor.close() 
+        
+
 def get_drones():
     connection = dbapi2.connect(dsn)
     cursor = connection.cursor()
@@ -219,6 +260,24 @@ def get_drones():
     cursor.close()
     return drones
 
+# this can be done in python but I prefer to use SQL 
+def get_price(drones):
+    ids = []
+    for i in drones:
+        ids.append(i[0])
+    ids = tuple(ids)
+    connection = dbapi2.connect(dsn)
+    cursor = connection.cursor()
+    query = "SELECT SUM(price) FROM drone where id in %s"
+    cursor.execute(query,(ids,))
+    sumof = cursor.fetchone()
+    cursor.close()
+    return sumof[0]
 
     
+
+
+
+
+
 

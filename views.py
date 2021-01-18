@@ -72,23 +72,36 @@ def comparison_drone():
         return redirect(url_for('home_page'))
     if not dronecomparison or len(dronecomparison) == 1:
         return render_template("comparisondummy.html")
-    
     else:
         return render_template("comparison.html",drones=dronecomparison)
  
 
 @login_required
 def basket():
+    global droneatbasket
+    if droneatbasket:
+        price = dbutils.get_price(droneatbasket)
+    else:
+        price = 0
     if request.method == "POST":
+        # remove from basket(pop from droneatbasket list)
         if "removebasket" in request.form:
             index = int(request.form['removebasket'])
             droneatbasket.pop(index-1)
             return render_template("basketafterremoved.html")
+        # but and give an order
         elif "buy" in request.form:
             global droneatbasket 
+            drone_ids = []
+            for i in droneatbasket:
+                drone_ids.append(i[0]) 
+            dbutils.add_order(current_user,price,"Waiting","Tomorrow","10 Days","Today",drone_ids)
+            
             droneatbasket = []
+
             return redirect(url_for('home_page'))
-    return render_template("basket.html",drones=droneatbasket)
+   
+    return render_template("basket.html",drones=droneatbasket,totprice=price)
 
 
 
@@ -138,5 +151,10 @@ def login_page():
     return render_template("login.html")
 
 def logout():
+    global droneatbasket
+    global comparison_drone
+
+    droneatbasket = []
+    comparison_drone = []
     logout_user()
     return render_template("logout.html")
