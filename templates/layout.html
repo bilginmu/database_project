@@ -22,15 +22,19 @@
 						<a style="position: absolute; background-color: gray;" class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
 					</span>
 					{% endif %}
-					<span style="position: absolute; right: 160px;" class="navbar-item">
+					<span style="position: absolute; right: 80px;" class="navbar-item">
 						<a style="background-color: gray;" class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
 					</span>
 					{% if not current_user.is_admin %}
-					<span class="navbar-item" style="position: absolute; right: 80px;">
+					<span class="navbar-item" style="position: absolute; right: 260px;">
 						<a style="background-color: gray;" class="button is-link" href={{ url_for('basket') }}>Basket</a>
 					</span>
 					{% endif %}
+					
 					{% endif %}
+					
+					
+
 					{% if current_user.is_authenticated == False %}
 					<span class="navbar-item" style="position: absolute; right: 0px;">
 						<a style="background-color: rgb(10, 99, 10);" class="button is-link" href={{ url_for('registration') }}>Register</a>

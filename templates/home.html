@@ -1,24 +1,29 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-
+<span style="text-align: center; right: -500px;" class="navbar-item">
+	<input class="input" type="text" name="search" placeholder="Search">
+	<form action="" method="post">
+	<button class="button is-link" type="submit" style="height: 25px; background-color: gray;" name="searchb" >Search</button>
+	</form>
+</span>
 {% for row in drones  -%}
 		<div class="dronehome">
-			<img src={{row[1]}} width="250px" height="250px">			
-			<p><strong>Name: </strong>{{row[2]}}</p>
-			<p><strong>Type: </strong>{{row[3]}}</p>
-			<p><strong>Weight: </strong>{{row[4]}} kg</p>
-			<p><strong>Height: </strong>{{row[5]}} m</p>
-			<p><strong>Length: </strong>{{row[6]}} m</p>
-			<p><strong>Endurance: </strong>{{row[7]}} min</p>
-			<p><strong>Area: </strong>{{row[8]}}</p>
-			<p><strong>Technology: </strong>{{row[9]}}</p>
+			<img src={{row[8]}} width="250px" height="250px">			
+			<p><strong>Name: </strong>{{row[1]}}</p>
+			<p><strong>Type: </strong>{{row[2]}}</p>
+			<p><strong>Weight: </strong>{{row[5]}} kg</p>
+			<p><strong>Height: </strong>{{row[6]}} m</p>
+			<p><strong>Length: </strong>{{row[7]}} m</p>
+			<p><strong>Endurance: </strong>{{row[3]}} min</p>
+			<p><strong>Area: </strong>{{row[9]}}</p>
+			<p><strong>Technology: </strong>{{row[4]}}</p>
 			<p><strong>Price </strong>{{row[10]}} $</p>
 			<form action="" method="post">
-				<button name="compare" type="submit" value="{{loop.index}}">Compare</button>
+				<button name="compare" type="submit" class="button is-link" style="background-color: gray;" value="{{loop.index}}">Compare</button>
 			</form>
 			<form action="" method="post">
-				<button name="addbasket" type="submit" value="{{loop.index}}">Add to Basket</button>
+				<button name="addbasket" type="submit" class="button is-link" style="background-color: gray;"	 value="{{loop.index}}">Add to Basket</button>
 			</form>
 		</div>
 	

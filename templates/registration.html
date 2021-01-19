@@ -43,14 +43,28 @@
         <label  for="account" >Account Type:</label> <br>       
         &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Customer" name="type2" value="Customer" />
         <label for="Customer">Customer</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Company" name="type2" value="Company" />
-        <label for="Company">Company</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Distributor" name="type2" value="Distributor" />
-        <label for="Distributor">Distributor</label><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Seller" name="type2" value="Seller" />
+        <label for="Seller">Seller</label><br>
         <div id="dvtext">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment Method: <input name="payment" type="text" id="txtBox"/><br>
-            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Delivery Time:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input  type="text" name="time" id="txtBox" class="slideright"/>
+            
+            <table id="table2">
+                <tr>
+                    <td>Payment Method: </td>
+                    <td>
+                        <input type="radio" id="Credit" name="type3" value="Credit Card">
+                        <label for="Credit">Credit Card<label> <br>
+                        <input type="radio" id="Cash" name="type3" value="Cash">
+                        <label for="Cash">Cash</label> <br> 
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Delivery Time:</td>
+                    <td><input  type="text" name="time" id="txtBox" class="slideright"/></td>
+                </tr>
+            </table>
         </div>
+        
         <button name="rbutton" type="submit" value="Rbutton">Submit</button>
         
 

@@ -36,7 +36,7 @@ th,td{
 #dvtext {
   display: none;
 }
-#Distributor:checked ~ #dvtext{
+#Seller:checked ~ #dvtext{
   display: block;
 }
 

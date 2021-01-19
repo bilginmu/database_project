@@ -1,16 +1,20 @@
 from flask import Flask
-import databaseutils as dbutils
 from flask_login import LoginManager
 import views
-
+import databaseutilities as backend # database operations
+import user # users class 
 lm = LoginManager()
+
 @lm.user_loader
 def load_user(user_id):
-    return dbutils.get_user(user_id)
+    return user.get_user(user_id)
 
 
 def create_app():
     app = Flask(__name__)
+    # create tables
+    backend.init_db()
+
     app.secret_key = "secret"
     app.add_url_rule("/", view_func=views.home_page,methods=['GET','POST'])
     app.add_url_rule("/newdrone",view_func=views.new_drone,methods=['GET','POST'])
