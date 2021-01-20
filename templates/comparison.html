@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Comparison{% endblock %}
 {% block content %}
-<div class="split left">
-    <div class="centered">
-		<div class="dronehome">
+<div class="columns" style="color: black;">
+	<div class="column is-half">
 			<img src={{drones[0][8]}} width="250px" height="250px">			
 			<p><strong>Name: </strong>{{drones[0][1]}}</p>
 			<p><strong>Type: </strong>{{drones[0][2]}}</p>
@@ -14,15 +13,9 @@
 			<p><strong>Area: </strong>{{drones[0][9]}}</p>
 			<p><strong>Technology: </strong>{{drones[0][4]}}</p>
 			<p><strong>Price </strong>{{drones[0][10]}}</p>
+	</div>
+    <div class="column is-half">
 
-		</div>
-        
-    </div>
-  </div>
-  
-  <div class="split right">
-    <div class="centered">
-		<div class="dronehome">
 			<img src={{drones[1][8]}} width="250px" height="250px">			
 			<p><strong>Name: </strong>{{drones[1][1]}}</p>
 			<p><strong>Type: </strong>{{drones[1][2]}}</p>
@@ -33,13 +26,12 @@
 			<p><strong>Area: </strong>{{drones[1][9]}}</p>
 			<p><strong>Technology: </strong>{{drones[1][4]}}</p>
 			<p><strong>Price </strong>{{drones[1][10]}}</p>
-			<form action="" method="post">
-				<button style="position: absolute; right: 30px;" type="submit">Comparison is done!</button>
-			</form>
-		</div>
-		
+			
 	</div>
-  </div>
+</div>
 
+<form action="" method="post">
+	<input class="button is-link is-centered" style="background-color: hsl(171, 100%, 41%);" type="submit" value="Comparison is done!">
+</form>
   
 {% endblock %}

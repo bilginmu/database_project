@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<div class="columns is-centered ">
+    <div class="column is-narrow ">
+        <table class="table is-outlined">
+            <tbody>
+{%for i in drone%}
+
+            <tr>
+                <th>Seller Name:</th> 
+                <th>{{i[1]}}</th>
+                <td>Drone Name:</td> 
+                <td>{{i[2]}}</td>
+                <td>Price:</td>
+                <td> {{i[3]}}</td>
+                <td> Payment Method:</td>
+                <td> {{i[4]}}</td>
+            </tr>               
+
+{%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

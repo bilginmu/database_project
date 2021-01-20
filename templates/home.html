@@ -1,34 +1,63 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<span style="text-align: center; right: -500px;" class="navbar-item">
-	<input class="input" type="text" name="search" placeholder="Search">
-	<form action="" method="post">
-	<button class="button is-link" type="submit" style="height: 25px; background-color: gray;" name="searchb" >Search</button>
-	</form>
-</span>
-{% for row in drones  -%}
-		<div class="dronehome">
-			<img src={{row[8]}} width="250px" height="250px">			
-			<p><strong>Name: </strong>{{row[1]}}</p>
-			<p><strong>Type: </strong>{{row[2]}}</p>
-			<p><strong>Weight: </strong>{{row[5]}} kg</p>
-			<p><strong>Height: </strong>{{row[6]}} m</p>
-			<p><strong>Length: </strong>{{row[7]}} m</p>
-			<p><strong>Endurance: </strong>{{row[3]}} min</p>
-			<p><strong>Area: </strong>{{row[9]}}</p>
-			<p><strong>Technology: </strong>{{row[4]}}</p>
-			<p><strong>Price </strong>{{row[10]}} $</p>
-			<form action="" method="post">
-				<button name="compare" type="submit" class="button is-link" style="background-color: gray;" value="{{loop.index}}">Compare</button>
-			</form>
-			<form action="" method="post">
-				<button name="addbasket" type="submit" class="button is-link" style="background-color: gray;"	 value="{{loop.index}}">Add to Basket</button>
-			</form>
+<form action="" method="post">
+<div class="table2">
+	<tr>
+	<td>
+		<div class="select">
+		  <select name="searchop">
+			<option value="arease">Area</option>
+			<option value="technologyse">Technology</option>
+			<option value="typese">Type</option>
+		  </select>
 		</div>
+	</td>
+	<td>
+		<input  type="text" name="searched" class="input" style="height: 35px;"required="required"/>
+	</td>
+		<td>
+			<button name="search1" type="submit" class="button is-link" style="background-color: hsl(171, 100%, 41%); height:35px;" value="search1">Search</button>
+		</td>
+	</tr>
+</div>
+</form>
+<br>
+
+
+{% for row in drones  -%}
+<div class="columns">
+	<div class="column ">
+
+			<img src={{row[8]}} width="250px" height="250px">			
+			<p class="black"><strong>Name: </strong>{{row[1]}}</p>
+			<p class="black"><strong>Type: </strong>{{row[2]}}</p>
+			<p class="black"><strong>Weight: </strong>{{row[5]}} kg</p>
+			<p class="black"><strong>Height: </strong>{{row[6]}} m</p>
+			<p class="black"><strong>Length: </strong>{{row[7]}} m</p>
+			<p class="black"><strong>Endurance: </strong>{{row[3]}} min</p>
+			<p class="black"><strong>Area: </strong>{{row[9]}}</p>
+			<p class="black"><strong>Technology: </strong>{{row[4]}}</p>
+			<p class="black"><strong>Price </strong>{{row[10]}} $</p>
+			{%if not current_user.is_admin%}
+			<form action="" method="post">
+				<button name="compare" type="submit" class="button is-link"  style="background-color: hsl(171, 100%, 41%);height: 30px;"value="{{loop.index}}">Compare</button>
+			</form>
+			
+			<form action="" method="post">
+				<button name="addbasket" type="submit" class="button is-link" style="background-color: hsl(171, 100%, 41%); height:30px;" value="{{loop.index}}">Add to Basket</button>
+			</form>
+			{%else%}
+			<form action="" method="post">
+				<button name="edit" type="submit" class="button is-link" style="background-color: hsl(171, 100%, 41%); height:30px;" value="{{loop.index}}">Edit</button>
+			</form>
+			{%endif%}
+	</div>
 	
+</div>
 	
 {% endfor %}
+
 
 
 

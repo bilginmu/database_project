@@ -43,7 +43,12 @@ th,td{
 #fixed{
   position: fixed;
 }
-
+body{
+  color:black;
+}
+.black{
+  color:black;
+}
 #rightnav{
     right: -135%;
 }
@@ -72,15 +77,22 @@ th,td{
   
   /* If you want the content centered horizontally and vertically */
   .centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
   }
-  
+  .colorbulma{
+    background-color: hsl(171, 100%, 41%);
+  }
   /* Style the image inside the centered container, if needed */
   .centered img {
     width: 150px;
     border-radius: 50%;
   }
+
+.center-table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.center-table td {
+  text-align: center;
+  vertical-align: middle;
+}

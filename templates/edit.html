@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Edit{% endblock %}
+{% block content %}
+<div class="columns">
+	<div class="column ">
+        <form action="" method="post">
+			<img src={{row[8]}} width="250px" height="250px">			
+			<p class="black"><strong>Name: </strong>{{row[1]}}</p>
+			<p class="black"><strong>Type: </strong>{{row[2]}}</p>
+			<p class="black"><strong>Weight: </strong>{{row[5]}} kg</p>
+			<p class="black"><strong>Height: </strong>{{row[6]}} m</p>
+			<p class="black"><strong>Length: </strong>{{row[7]}} m</p>
+			<p class="black"><strong>Endurance: </strong>{{row[3]}} min</p>
+			<p class="black"><strong>Area: </strong>{{row[9]}}</p>
+			<p class="black"><strong>Technology: </strong>{{row[4]}}</p>
+			<p class="black"><strong>Price: </strong><input  type="text" name="price" class="input" required="required"/></p>
+			
+			
+				<button name="edit" type="submit" class="button is-link" style="background-color: hsl(171, 100%, 41%); height:30px;" value="edit">Edit</button>
+			</form>
+	</div>
+	
+</div>
+
+
+
+{% endblock %}

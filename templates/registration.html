@@ -1,74 +1,91 @@
 {% extends "layout.html" %}
 {% block title %}Registration{% endblock %}
 {% block content %}
-<h1 class="title fdrone"> Register </h1>
+<h1 class="title " style="color: black;"> Register </h1>
     <!-- drone attributes for additon of drones-->
     
-	<form class= "fdrone"  action="" method="post" name="movie_edit">
-		<label  id="labelid" for="uname">Name:</label>
-		<input  type="text" name="uname" class="input" id="inputid" required="required"/><br>
-		
-		<label  id="labelid" for="usurname">Surname:</label>
-		<input  type="text" name="sname" class="input" id="inputid" required="required"/><br>
-        
-        <label  id="labelid" for="address">Address:</label>
-		<input  id="inputid" type="text" name="address" class="input" required="required"/><br>
-		
-        <label  id="labelid" for="email">Email:</label>
-		<input  id="inputid" type="text" name="email" class="input" required="required"/><br>
-        
-        <label  id="labelid" for="country">Country:</label>
-		<input  id="inputid" type="text" name="country" class="input" required="required"/><br>
-		
-        
-        <label  id="labelid" for="username">Username:</label>
-		<input  id="inputid" type="text" name="username" class="input" required="required"/><br>
-        
-        <label  id="labelid" for="password">Password:</label>
-		<input  id="inputid" type="text" name="password" class="input" required="required"/><br>
-		
-        
-        <label  for="uarea" >Interested Area:</label> <br>       
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="agriculture" name="type" value="agriculture" />
-        <label for="agriculture">agriculture</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="racing" name="type" value="racing" />
-        <label for="racing">racing</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="delivery" name="type" value="delivery" />
-        <label for="delivery">delivery</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="shipping" name="type" value="shipping" />
-        <label for="shipping">shipping</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="photo" name="type" value="photo" />
-        <label for="photo">photography</label><br>
-        
-        <label  for="account" >Account Type:</label> <br>       
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Customer" name="type2" value="Customer" />
-        <label for="Customer">Customer</label><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio" id="Seller" name="type2" value="Seller" />
-        <label for="Seller">Seller</label><br>
-        <div id="dvtext">
-            
-            <table id="table2">
+	<form class= "is-centered"  action="" method="post" name="movie_edit">
+        <div class="columns is-centered ">
+			<div class="column is-narrow ">
+            <table class="table2 black">
                 <tr>
-                    <td>Payment Method: </td>
-                    <td>
-                        <input type="radio" id="Credit" name="type3" value="Credit Card">
-                        <label for="Credit">Credit Card<label> <br>
-                        <input type="radio" id="Cash" name="type3" value="Cash">
-                        <label for="Cash">Cash</label> <br> 
+                    <td><label  for="uname">Name:</label> </td>
+                    <td><input type="text" name="uname" class="input" required="required"/><br> </td>
+                </tr>
+                <tr> 
+                    <td><label  for="usurname">Surname:</label></td>
+                    <td><input type="text" name="sname" class="input"  required="required"/><br></td>
+                </tr>
+                <tr>
+                    <td><label  for="address">Address:</label> </td>
+                    <td><input  type="text" name="address" class="input" required="required"/><br></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="text" name="email" class="input" required="required"/></td><br>
+                </tr>
+                <tr>
+                    <td><label for="country">Country:</label></td>
+                    <td><input type="text" name="country" class="input" required="required"/><br></td>
+                </tr>
+                <tr>
+                    <td><label for="username">Username:</label> </td>
+                    <td> <input type="text" name="username" class="input" required="required"/><br></td>
+                </tr>
+                <tr>
+                    <td><label   for="password">Password:</label></td>
+		            <td><input  type="text" name="password" class="input" required="required"/><br></td>
+                </tr>
+                <tr>
+                    <td><label   for="uarea" >Interested Area:</label> <br> </td>
+                    <td>      
+                    <input   type="radio" id="agriculture" name="type" value="agriculture" />
+                    <label for="agriculture">agriculture</label><br>
+                    <input  type="radio" id="racing" name="type" value="racing" />
+                    <label for="racing">racing</label><br>
+                    <input  type="radio" id="delivery" name="type" value="delivery" />
+                    <label for="delivery">delivery</label><br>
+                    <input  type="radio" id="shipping" name="type" value="shipping" />
+                    <label for="shipping">shipping</label><br>
+                    <input class="black"  type="radio" id="photo" name="type" value="photo" />
+                    <label for="photo">photography</label><br><br>
                     </td>
-
                 </tr>
                 <tr>
-                    <td>Delivery Time:</td>
-                    <td><input  type="text" name="time" id="txtBox" class="slideright"/></td>
-                </tr>
-            </table>
-        </div>
+                    <td><label  for="account" >Account Type:</label> <br>  </td>
+                    <td>    
+                    <input  type="radio" id="Customer" name="type2" value="Customer" />
+                    <label for="Customer">Customer</label><br>
+                    <input  type="radio" id="Seller" name="type2" value="Seller" />
+                    <label for="Seller">Seller</label><br>
+                    <div id="dvtext">
+                        <table id="table2">
+                            <tr>
+                                <td>Payment Method: </td>
+                                <td>
+                                    <input type="radio" id="Credit" name="type3" value="Credit Card">
+                                    <label for="Credit">Credit Card<label> <br>
+                                    <input type="radio" id="Cash" name="type3" value="Cash">
+                                    <label for="Cash">Cash</label> <br> 
+                                </td>
+                            
+                            </tr>
+                            <tr>
+                                <td>Delivery Time:</td>
+                                <td><input  type="text" name="time" id="txtBox" class="slideright"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                </div>
+                </td>
+            </tr>
         
-        <button name="rbutton" type="submit" value="Rbutton">Submit</button>
+            
+        </table>
+			
         
-
-
+        <button name="rbutton" class="button" type="submit" value="Rbutton">Submit</button>
         
 	</form>	
 {% endblock %}

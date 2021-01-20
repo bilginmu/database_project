@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<h1 class="title " style="color: black;">  </h1>
+    <!-- drone attributes for additon of drones-->
+<p class="title" style="color: black;"> Account </p>
+	<form   action="" method="post" name="movie_edit">
+       
+            <table class="table2 black">
+                <tr>
+                    <td><label  for="uname">Name:</label> </td>
+                    <td><input type="text" name="uname" class="input" /><br> </td>
+                </tr>
+                <tr> 
+                    <td><label  for="usurname">Surname:</label></td>
+                    <td><input type="text" name="sname" class="input" /><br></td>
+                </tr>
+                <tr>
+                    <td><label  for="address">Address:</label> </td>
+                    <td><input  type="text" name="address" class="input"  /><br></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="text" name="email" class="input" /></td><br>
+                </tr>
+                <tr>
+                    <td><label for="country">Country:</label></td>
+                    <td><input type="text" name="country" class="input"  /><br></td>
+                </tr>
+                <tr>
+                    <td><label for="username">Username:</label> </td>
+                    <td> {{user[0]}}<br></td>
+                </tr>
+                <tr>
+                    <td><label   for="password">Password:</label></td>
+		            <td><input  type="text" name="password" class="input" /><br></td>
+                </tr>       
+            
+        </table>
+		<button name="delete" class="button is-link" type="submit" value="delete">Delete User</button>
+        <button name="submit-user" class="button is-link" type="submit" value="Rbutton">Submit</button>       
+	</form>	
+
+{% endblock %}

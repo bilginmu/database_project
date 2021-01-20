@@ -8,51 +8,96 @@
 			  href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/static/style.css">
 	</head>
-	<body>
-		<header>
-	   		<nav style="background-color: gray;" class="navbar" aria-label="main navigation">
-				<div class="navbar-brand" >
-					
-					<span style="position: absolute;left: 0%;" class="navbar-item">
-						<a style="background-color: rgb(10, 99, 10);" class="button is-link" href={{ url_for('home_page') }}>Home</a>
-					</span>
-					{% if current_user.is_authenticated  == True %}
-					{% if current_user.is_admin %}   
-					<span style="right: -80px;" class="navbar-item">
-						<a style="position: absolute; background-color: gray;" class="button is-link" href={{ url_for('new_drone') }}>New Drone</a>
-					</span>
+	<section class="hero is-primary is-medium">
+		<!-- Hero head: will stick at the top -->
+		<div class="hero-head">
+		  <nav class="navbar">
+			<div class="container">
+			  <div class="navbar-brand">
+				<span class="navbar-burger burger" data-target="navbarMenuHeroA">
+				  <span></span>
+				  <span></span>
+				  <span></span>
+				</span>
+			  </div>
+			  
+			  <div id="navbarMenuHeroA" class="navbar-menu">
+				
+				<div class="navbar-start">
+					{%if  current_user.is_authenticated == True %}
+					<a class="navbar-item is-link" href={{ url_for('home_page') }}>
+						Home
+					</a>
+					{%if current_user.is_admin%}
+					<a class="navbar-item is-link" href={{ url_for('new_drone') }}>
+						Add Drone
+					</a>
 					{% endif %}
-					<span style="position: absolute; right: 80px;" class="navbar-item">
-						<a style="background-color: gray;" class="button is-link" href={{ url_for('comparison_drone') }}>Compare Two Drones</a>
-					</span>
-					{% if not current_user.is_admin %}
-					<span class="navbar-item" style="position: absolute; right: 260px;">
-						<a style="background-color: gray;" class="button is-link" href={{ url_for('basket') }}>Basket</a>
-					</span>
-					{% endif %}
-					
-					{% endif %}
-					
-					
+					{%if not current_user.is_admin%}
+					<a class="navbar-item is-link" href={{ url_for('comparison_drone') }}>
+						Compare Drone
+					</a>
+					{%endif%}
+					{% else %}
+					<a class="navbar-item is-link" href={{ url_for('login_page') }}>
+						Login
+					</a>
+					{%endif%}
+				</div>
+				
 
-					{% if current_user.is_authenticated == False %}
-					<span class="navbar-item" style="position: absolute; right: 0px;">
-						<a style="background-color: rgb(10, 99, 10);" class="button is-link" href={{ url_for('registration') }}>Register</a>
-					</span>
-					{% endif %}
-					{% if current_user.is_authenticated == True %}
-					<span class="navbar-item" style="position: absolute; right: 0px;">
-						<a style="background-color: gray;" class="button is-link" href={{ url_for('logout') }}>Logout</a>
-					</span>
-					{% endif %}
-			   </div> 
-			</nav>
-		
-	</header>
-	{% block content %}{% endblock %}
-	<footer>
+				
+				<div class="navbar-end">
+				  {% if current_user.is_authenticated == True %}
+				  {% if not current_user.is_admin%}
+				  	<a class="navbar-item is-link"href={{ url_for('basket') }}>
+						Basket
+				  	</a>
+				  	<a class="navbar-item is-link" href={{ url_for('orders') }}>
+						Order
+				  	</a>
+				  {%endif%}
+				  <a class="navbar-item is-link" href={{ url_for('account') }}>
+					Account
+				  </a>
+				  <a class="navbar-item is-link" href={{ url_for('logout') }}>
+					Logout
+				  </a>
+				  {% else %}
+				  <a class="navbar-item is-link" href={{ url_for('registration') }}>
+					Register
+				  </a>
+				  {% endif %}
+				  <div class="navbar-item field">
+					<p class="control has-icons-right">
+					  <input class="input is-link" type="search" placeholder="Search..."href={{ url_for('account') }}>
+					  <span class="icon is-small is-right">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 36 36"><path fill="#ddd" d="M23.822 20.88l-6.353-6.354c.93-1.465 1.467-3.2 1.467-5.059.001-5.219-4.247-9.467-9.468-9.467s-9.468 4.248-9.468 9.468c0 5.221 4.247 9.469 9.468 9.469 1.768 0 3.421-.487 4.839-1.333l6.396 6.396 3.119-3.12zm-20.294-11.412c0-3.273 2.665-5.938 5.939-5.938 3.275 0 5.94 2.664 5.94 5.938 0 3.275-2.665 5.939-5.94 5.939-3.274 0-5.939-2.664-5.939-5.939z"/></svg>
+					  </span>
+					</p>
+				  </div>
+				  
+				</div>
+			  </div>
+			</div>
+		  </nav>
+		</div>
+	
+		<!-- Hero content: will be in the middle -->
+		<div class="hero-body" style="background-color: white;">
+		  <div class="container has-text-centered" >
+			{% block content %}{% endblock %}
+		  </div>
+		</div>
+	
+		<!-- Hero footer: will stick at the bottom -->
+		<div class="hero-foot">
 			<small>&copy; 2021, Mustafa Bilgin</small>
-	</footer>
-	</body>
-</html>
+		</div>
+	  </section>
 
+</header>
+
+</body>
+</html>
+  

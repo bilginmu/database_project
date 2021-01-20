@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+<p  class="black" style="text-align: center;">These are order of customer whose username {{current_user.username}}.</p>
+<br>
+{%for i in orders%}
+<div class="columns is-centered ">
+    <div class="column is-narrow ">
+        <table class="table is-outlined">
+            <tbody>
+            <tr>
+                <th>Order ID:</th> 
+                <th>{{loop.index}}</th>
+            </tr>
+            <tr>
+                <td>Customer:</td> 
+                <td>{{i[0][1]}}</td>
+            </tr>
+            <tr>
+                <td>Sent to this adress:</td>
+                <td> {{i[0][2]}}</td>
+            </tr>
+            {%for j in i%}
+                <tr>
+                    <td>Drone:</td>
+                    <td> {{j[3]}}</td>
+                </tr>
+                <tr>
+                    <td>Drone price:</td> 
+                    <td>{{j[4]}}</td>
+                </tr>
+                <tr>
+                    <td>Total price:</td>
+                    <td> {{i[0][-1]}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endfor%}
+  
+
+{% endblock %}

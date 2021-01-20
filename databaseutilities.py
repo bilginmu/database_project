@@ -69,7 +69,7 @@ def _create_drone_table():
             photo varchar(500) NOT NULL,
             area varchar(50) NOT NULL,
             price float NOT NULL,
-            seller varchar(50) REFERENCES seller(username) 
+            seller varchar(50) REFERENCES seller(username) ON DELETE CASCADE
         );
     """
     cursor.execute(statement)
@@ -85,7 +85,7 @@ def _create_order_table():
             shipped_date varchar(150) NOT NULL,
             order_date varchar(150) NOT NULL,
             status varchar(100) NOT NULL,
-            customer_username varchar(50) REFERENCES customer(username)
+            customer_username varchar(50) REFERENCES customer(username) ON DELETE CASCADE
         );    
     """
     cursor.execute(statement)
@@ -98,8 +98,8 @@ def _create_orderline_table():
     statement = """
         CREATE TABLE IF NOT EXISTS orderline(
             id SERIAL PRIMARY KEY,
-            order_id integer REFERENCES orders(id),
-            drone_id integer REFERENCES drone(id)
+            order_id integer REFERENCES orders(id) ON DELETE CASCADE,
+            drone_id integer REFERENCES drone(id) ON DELETE CASCADE
         );    
     """
     cursor.execute(statement)
@@ -168,18 +168,33 @@ def _get_drone_id(name):
 # get order id from database for current_user
 def _get_order_id(current_username):
     connection,cursor = get_db()
-    query = "SELECT id FROM orders WHERE customer_username=%s;"
+    query = "SELECT MAX(id) FROM orders WHERE customer_username=%s;"
     cursor.execute(query,(current_username,))
     order_id = cursor.fetchone()
     close_db(cursor)
     return order_id[0]
 
-
+def _get_user(current_username):
+    connection,cursor = get_db()
+    query = "SELECT * FROM customer WHERE username=%s"
+    cursor.execute(query,(current_username,))
+    user = cursor.fetchone()
+    if user is not None:
+        close_db(cursor)
+        return user
+    # if user is seller
+    query = "SELECT * FROM seller WHERE username=%s"
+    cursor.execute(query,(current_username,))
+    user = cursor.fetchone()
+    if user is not None:
+        close_db(cursor)
+        return user
+    return None
 
 # delete drone from database
 def _delete_drone(name):
     connection,cursor = get_db()
-    query = "DELETE FROM drone WHERE name=%s CASCADED;"
+    query = "DELETE FROM drone WHERE name=%s CASCADE;"
     cursor.execute(query,(name,))
     connection.commit()
     close_db(cursor)
@@ -187,7 +202,7 @@ def _delete_drone(name):
 # delete order from database
 def _delete_order(current_username):
     connection,cursor = get_db()
-    query = "DELETE FROM orders WHERE customer_username=%s CASCADED;"
+    query = "DELETE FROM orders WHERE customer_username=%s CASCADE;"
     cursor.execute(query,(current_username,))
     connection.commit()
     close_db(cursor)
@@ -195,7 +210,7 @@ def _delete_order(current_username):
 # delete customer from database
 def _delete_customer(current_username):
     connection,cursor = get_db()
-    query = "DELETE FROM customer WHERE username=%s CASCADED;"
+    query = "DELETE FROM customer WHERE username=%s;"
     cursor.execute(query,(current_username,))
     connection.commit()
     close_db(cursor)
@@ -203,7 +218,7 @@ def _delete_customer(current_username):
 # delete seller from database
 def _delete_seller(current_username):
     connection,cursor = get_db()
-    query = "DELETE FROM seller WHERE username=%s CASCADED;"
+    query = "DELETE FROM seller WHERE username=%s;"
     cursor.execute(query,(current_username,))
     connection.commit()
     close_db(cursor)
@@ -213,7 +228,7 @@ def _delete_seller(current_username):
 def _update_drone(photo,name,dtype,weight,height,length,endurance,technology,area,price):
     connection,cursor = get_db()
     query = """ UPDATE drone
-        SET (photo,dtype,weight,height,length,endurance,technology,area,price)=(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) 
+        SET (photo,type,weight,height,length,endurance,technology,area,price)=(%s,%s,%s,%s,%s,%s,%s,%s,%s) 
         WHERE name=%s;"""
     cursor.execute(query,(photo,dtype,weight,height,length,endurance,technology,area,price,name))
     connection.commit()
@@ -226,7 +241,7 @@ def _update_customer(username,name,password,country,area,email,address):
         SET (name,password,country,area,email,address) = (%s,%s,%s,%s,%s,%s)
         WHERE username=%s;
         """
-    cursor.execute(query,(name,password,country,area,email,address,username))
+    cursor.execute(query,(name,hasher.hash(password),country,area,email,address,username))
     connection.commit()
     close_db(cursor)
 
@@ -238,7 +253,7 @@ def _update_seller(username,name,password,country,area,delivery_time,payment_met
         SET (name,password,country,area,delivery_time,payment_method) = (%s,%s,%s,%s,%s,%s) 
         WHERE username=%s;
         """ 
-    cursor.execute(query,(name,password,country,area,delivery_time,payment_method,username))
+    cursor.execute(query,(name,hasher.hash(password),country,area,delivery_time,payment_method,username))
     connection.commit()
     close_db(cursor)
 
@@ -250,8 +265,49 @@ def _get_homepage_drones():
     cursor.execute(query)
     drones_ordered = cursor.fetchall()
     close_db(cursor)
-    print(drones_ordered)
     return drones_ordered
+def _get_homepage_drones_for_seller(current_username):
+    connection,cursor = get_db()
+    query = "SELECT * FROM drone WHERE seller=%s ORDER BY price ASC;"
+    cursor.execute(query,(current_username,))
+    drones_homepage_for_seller = cursor.fetchall()
+    close_db(cursor)
+    return drones_homepage_for_seller
+
+def get_order_drones(customer_username):
+    drones =  _get_order_drones(customer_username)
+    orders = []
+    order = []
+    for i in range(len(drones)-1):
+        order.append(drones[i])
+        if(drones[i][0] != drones[i+1][0]):
+            orders.append(order)
+            if(drones[i+1] == drones[-1]):
+                order = []
+                order.append(drones[-1])
+                orders.append(order)
+            order = []
+        if(drones[i][0] == drones[i+1][0] and drones[i+1]==drones[-1]):
+            order.append(drones[i+1])
+            orders.append(order)
+    return orders
+
+def _get_order_drones(customer_username):
+    connection,cursor = get_db()
+    query = """SELECT or1.id,  cus.name, cus.address, d.name,d.price,or1.total_price 
+        FROM orderline ol
+        INNER JOIN orders as or1
+        ON or1.id=ol.order_id
+        INNER JOIN drone d
+        ON d.id=ol.drone_id
+        INNER JOIN customer cus
+        ON cus.username=or1.customer_username
+        WHERE cus.username=%s;
+        """
+    cursor.execute(query,(customer_username,))
+    drones = cursor.fetchall()
+    close_db(cursor)
+    return drones
 
 # get total price of drones from database
 def _get_basket_price(drones):
@@ -264,3 +320,41 @@ def _get_basket_price(drones):
     total_price = cursor.fetchone()
     close_db(cursor)
     return total_price[0]
+
+def _get_searched_drones_with_area(area):
+    connection,cursor = get_db()
+    query = """SELECT sel.username, sel.name, d.name, d.price, sel.payment_method 
+        FROM drone d 
+        INNER JOIN seller sel
+        ON d.seller=sel.username
+        WHERE d.area=%s;
+        """
+    cursor.execute(query,(area,))
+    drones = cursor.fetchall()
+    close_db(cursor)
+    return drones
+def _get_searched_drones_with_tech(tech):
+    connection,cursor = get_db()
+    query = """SELECT sel.username, sel.name, d.name, d.price, sel.payment_method 
+        FROM drone d 
+        INNER JOIN seller sel
+        ON d.seller=sel.username
+        WHERE d.technology=%s;
+        """
+    cursor.execute(query,(tech,))
+    drones = cursor.fetchall()
+    close_db(cursor)
+    return drones
+
+def _get_searched_drones_with_type(dtype):
+    connection,cursor = get_db()
+    query = """SELECT sel.username, sel.name, d.name, d.price, sel.payment_method 
+        FROM drone d 
+        INNER JOIN seller sel
+        ON d.seller=sel.username
+        WHERE d.type=%s;
+        """
+    cursor.execute(query,(dtype,))
+    drones = cursor.fetchall()
+    close_db(cursor)
+    return drones

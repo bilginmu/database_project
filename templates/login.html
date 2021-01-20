@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <p></p><b> LOGIN</b></p>
-    <table id="table2">
+<form method="post">
+    <p class="title" style="color: black;"> LOGIN</p>
+    <table id="table2" class="black is-centered" >
     <form class= "fdrone" action="" method="post" name="movie_edit">
         
         <tr>         
@@ -14,15 +15,11 @@
             <td><input  type="text" name="password" class="input" required="required"/><br></td>
         
         </tr>
-        <tr>
-            <td>
-                <div action="" method="post">
-                    <button name="login" value="logged" type="submit" >Login</button>
-                </div>
-            </td>
-        </tr>
+       
     </form>
     
     </table>
-
+    
+        <input name="login" class="button" value="Login" type="submit" >
+</form>
 {% endblock %}

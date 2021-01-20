@@ -23,6 +23,10 @@ def create_app():
     app.add_url_rule("/basket",view_func=views.basket,methods=['GET','POST'])
     app.add_url_rule("/login",view_func=views.login_page,methods=['GET','POST'])
     app.add_url_rule("/logout",view_func=views.logout,methods=['GET','POST'])
+    app.add_url_rule("/orders",view_func=views.orders,methods=['GET','POST'])
+    app.add_url_rule("/account",view_func=views.account,methods=['GET','POST'])
+    app.add_url_rule("/edit",view_func=views.edit,methods=['GET','POST'])
+    app.add_url_rule("/search",view_func=views.search,methods=['GET','POST'])
     lm.init_app(app)
     lm.login_view = "login_page"
     return app
